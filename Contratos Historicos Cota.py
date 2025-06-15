@@ -2,12 +2,20 @@ import pandas as pd
 import requests
 from datetime import date, datetime
 import funciones.funciones_complementarias as fc
+from dotenv import load_dotenv
+import os
 
 today = date.today()
 
-base_url_CONTRATOS_SECOPII = 'https://www.datos.gov.co/resource/nmbi-zvgs.json'
+base_url_CONTRATOS_SECOPII = os.getenv("BASEURL1CONTRATOS")
 
-df_CONTRATOS_SECOPII = fc.extract_info_api(base_url_CONTRATOS_SECOPII)
+load_dotenv()
+
+username = os.getenv("USERNAME")
+password = os.getenv("PASSWORD")
+
+
+df_CONTRATOS_SECOPII = fc.extract_info_api(base_url_CONTRATOS_SECOPII, username, password)
 
 reemplazos_columnas_CONTRATOS_SECOPII = {
     'nombre_entidad': 'Nombre Entidad',
@@ -252,9 +260,9 @@ df_CONTRATOS_SECOPII.loc[:,'PLATAFORMA']="SECOP II"
 
 # ------------------------------------------------------------------------------------------------------------------------ #
 
-base_url_CONTRATOS_SECOPI = 'https://www.datos.gov.co/resource/8ebu-adji.json'
+base_url_CONTRATOS_SECOPI = os.getenv("BASEURL2CONTRATOS")
 
-df_CONTRATOS_SECOPI = fc.extract_info_api(base_url_CONTRATOS_SECOPI)
+df_CONTRATOS_SECOPI = fc.extract_info_api(base_url_CONTRATOS_SECOPI, username, password)
 
 reemplazos_columnas_CONTRATOS_SECOPI = {
     'uid': 'UID',
@@ -376,9 +384,9 @@ df_CONTRATOS_SECOPI.loc[:, 'ENLACE DEL PROCESO'] = df_CONTRATOS_SECOPI['RUTA PRO
 
 # ------------------------------------------------------------------------------------------------------------------------------ #
 
-base_url_tvec = 'https://www.datos.gov.co/resource/g8ap-7zzf.json'
+base_url_tvec = os.getenv("BASEURLTVEC")
 
-df_CONTRATOS_TVEC = fc.extract_info_api(base_url_tvec)
+df_CONTRATOS_TVEC = fc.extract_info_api(base_url_tvec, username, password)
 
 reemplazos_columnas_TVEC = {
     'a_o': 'Año',

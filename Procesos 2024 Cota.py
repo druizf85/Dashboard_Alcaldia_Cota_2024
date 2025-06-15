@@ -1,6 +1,8 @@
 import pandas as pd
 from datetime import date
 import funciones.funciones_complementarias as fc
+from dotenv import load_dotenv
+import os
 
 CONTRATOS2024_SECOPII_PATH='INTEGRADO.xlsx'
 
@@ -8,9 +10,15 @@ df_contratos_s2 = pd.read_excel(CONTRATOS2024_SECOPII_PATH,sheet_name='S2')
 
 df_contratos_s2_2024=df_contratos_s2[df_contratos_s2['FECHA DE FIRMA'].dt.year == 2024]
 
-base_url_PROCESOS_SECOPII = 'https://www.datos.gov.co/resource/naza-xjvd.json'
+load_dotenv()
 
-df_PROCESOS_SECOP_II = fc.extract_info_api(base_url_PROCESOS_SECOPII)
+username = os.getenv("USERNAME")
+password = os.getenv("PASSWORD")
+
+base_url_PROCESOS_SECOPII = os.getenv("BASEURL1PROCESOS")
+
+
+df_PROCESOS_SECOP_II = fc.extract_info_api(base_url_PROCESOS_SECOPII, username, password)
 
 reemplazos_columnas_PROCESOS_SECOPII = {
     'entidad': 'Entidad',
@@ -241,7 +249,7 @@ df_PROCESOS_SECOP_II.loc[df_PROCESOS_SECOP_II['ESTADO GENERAL'] == 'En plataform
 cruce_id_proceso1 = df_PROCESOS_SECOP_II
 contratos_cruce = pd.merge(cruce_id_proceso[['DEPENDENCIA','MODALIDAD GENERAL','TIPO DE CONTRATO GENERAL','JUSTIFICACIÓN MODALIDAD GENERAL','DESCRIPCION DEL PROCESO','PROCESO DE COMPRA','REFERENCIA DEL CONTRATO','ESTADO CONTRATO','VALOR DEL CONTRATO','FECHA DE FIRMA','ENLACE DEL PROCESO']],cruce_id_proceso1, left_on='PROCESO DE COMPRA', right_on='ID DEL PORTAFOLIO', how='left')
 
-contratos_cruce.to_excel('/content/drive/MyDrive/Colab Notebooks/Proyectos personales/Cruce contratos vs procesos Cota.xlsx')
+contratos_cruce.to_excel('Cruce contratos vs procesos Cota.xlsx')
 
 datos_no_encontrados = contratos_cruce[contratos_cruce['FECHA DE PUBLICACIÓN INICIAL'].isnull()]
 datos_no_encontrados.loc[:, 'RESPUESTAS AL PROCEDIMIENTO'] = 0
@@ -277,12 +285,12 @@ hay_en_plataforma = consolidado_procesos[consolidado_procesos['ESTADO GENERAL'] 
 
 consolidado_procesos = consolidado_procesos.reset_index().drop('index', axis=1)
 
-datos_no_encontrados.to_excel('/content/drive/MyDrive/Colab Notebooks/Proyectos personales/contratos no encontrados 2024 cota.xlsx',sheet_name='contratos no encontrados 2024 cota')
+datos_no_encontrados.to_excel('contratos no encontrados 2024 cota.xlsx',sheet_name='contratos no encontrados 2024 cota')
 
 today = date.today()
 
 consolidado_procesos.loc[:,'HOY'] = today
 consolidado_procesos = consolidado_procesos.reset_index().drop('index', axis=1)
-consolidado_procesos.to_excel('/content/drive/MyDrive/Colab Notebooks/Proyectos personales/DB.xlsx',sheet_name='DB')
+consolidado_procesos.to_excel('DB.xlsx',sheet_name='DB')
 
-df_contratos_s2_2024.to_excel('/content/drive/MyDrive/Colab Notebooks/Proyectos personales/Contratos 2024.xlsx',sheet_name='DB')
+df_contratos_s2_2024.to_excel('Contratos 2024.xlsx',sheet_name='DB')
