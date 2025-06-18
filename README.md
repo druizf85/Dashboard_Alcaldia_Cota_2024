@@ -54,7 +54,7 @@ INFORME - SEGUIMIENTO CONTRATOS DE PRESTACIÓN DE SERVICIOS (CPS) SECOP II
 ![image](https://github.com/user-attachments/assets/2f5e2b60-d7e4-4e49-b59e-65795de75da5)
 ![image](https://github.com/user-attachments/assets/1c884f06-988c-4209-99fa-5185ede6b2a2)
 
-Desarrollado para llevar seguimiento a validaciones específicas de los contratos de prestación de servicios (estado actual y seguimiento a la liquidación de contratos finalizados y alertas al cierre y liquidaci{on de contratos por vencer), dentro de sus visualizaciones se encuentran:
+Desarrollado para llevar seguimiento a validaciones específicas de los contratos de prestación de servicios (estado actual y seguimiento a la liquidación de contratos finalizados y alertas al cierre y liquidación de contratos por vencer), dentro de sus visualizaciones se encuentran:
 
 - Cantidad y valor de los contratos por mes.
 - Estado de liquidación y cumplimiento sobre la totalidad de contratos finalizados.
