@@ -1,4 +1,4 @@
-# Caso Práctico - Gestión Contractual - Alcaldia Cota 2024
+# Caso Práctico - Gestión Contractual - Alcaldía de Cota 2024
 
 Integración de Datos para la Contratación Estatal en la Alcaldía de Cota, Cundinamarca.
 
